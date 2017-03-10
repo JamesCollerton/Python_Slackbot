@@ -1,3 +1,13 @@
-#!/usr/bin/env python
+from Twitter import Twitter
 
-print "Hello, world."
+def getDaveTweet():
+
+    twitter = Twitter();
+    twitter.getDaveTweet();
+
+def main():
+
+    getDaveTweet();
+
+if __name__ == "__main__":
+    main()
