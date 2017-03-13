@@ -3,11 +3,11 @@ from Twitter import Twitter
 def getDaveTweet():
 
     twitter = Twitter();
-    twitter.getDaveTweet();
+    return twitter.getDaveTweet();
 
 def main():
 
-    getDaveTweet();
+    print(getDaveTweet());
 
 if __name__ == "__main__":
     main()
