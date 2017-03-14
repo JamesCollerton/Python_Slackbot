@@ -9,8 +9,14 @@
 
 # We also need to install the scipy library. To do this we need the miniconda library, available at:
 
-# https://conda.io/miniconda.html
+# https://www.continuum.io/downloads
 
-# Once downloaded install scipy using 
+# Once downloaded create a Python 3.5 environment using the instructions here
 
+# https://conda.io/docs/using/envs.html
+
+# Then install numpy and scipy using 
+
+# conda install numpy
 # conda install scipy
+# conda install -c conda-forge tensorflow
