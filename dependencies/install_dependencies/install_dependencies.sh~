@@ -19,3 +19,5 @@
 
 # conda install numpy
 # conda install scipy
+# conda install -c conda-forge tensorflow
+# conda install 
