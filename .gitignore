@@ -1,1 +1,10 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/*
+*.py[cod]
+*$py.class
+
+# Passwords / secrets
+twitter_keys.py
+
+# Neural Network
 *.mat
