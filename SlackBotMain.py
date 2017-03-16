@@ -13,6 +13,7 @@ def runNeuralNetwork():
 
 def main():
 
+    # Currently not working because keys expired.
     # print(getDaveTweet());
     runNeuralNetwork();
 
