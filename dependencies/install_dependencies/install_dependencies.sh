@@ -16,3 +16,8 @@
 # Also download the pre-trained VGG network using the link at the bottom
 # of this page and put it in the top level directory of the python
 # folder
+
+# You will also need to install the twitter libraries
+
+# pip install tweepy
+
