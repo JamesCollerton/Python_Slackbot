@@ -1,5 +1,5 @@
 import tweepy
-import TwitterKeys
+import Keys
 
 from random import randint
 from tweepy import OAuthHandler
@@ -7,8 +7,13 @@ from tweepy import OAuthHandler
 class Twitter:
 
   def getDaveTweet(self):
-    auth = OAuthHandler(TwitterKeys.consumer_key, TwitterKeys.consumer_secret)
-    auth.set_access_token(TwitterKeys.access_token, TwitterKeys.access_secret)
+    """
+    Sets up the connection to the twitter API using the keys
+    in the Keys.py ignored file and then gets a random tweet
+    from the last 100.
+    """
+    auth = OAuthHandler(Keys.twitter_consumer_key, Keys.twitter_consumer_secret)
+    auth.set_access_token(Keys.twitter_access_token, Keys.twitter_access_secret)
 
     api = tweepy.API(auth)
 

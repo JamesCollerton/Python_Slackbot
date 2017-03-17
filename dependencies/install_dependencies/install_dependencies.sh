@@ -17,7 +17,7 @@
 # of this page and put it in the top level directory of the python
 # folder
 
-# You will also need to install the twitter libraries
+# You will also need to install the twitter and slackbot libraries
 
 # pip install tweepy
-
+# pip install slackclient
