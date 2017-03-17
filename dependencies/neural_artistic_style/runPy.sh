@@ -1,1 +1,1 @@
-python neural_style.py --content examples/1-content.jpg --styles examples/1-style.jpg --output examples/1-output.jpg --iterations 10
+python neural_style.py --content ../images/dave_face.jpeg --styles examples/1-style.jpg --output examples/1-output.jpg --iterations 10

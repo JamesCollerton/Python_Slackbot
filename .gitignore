@@ -5,6 +5,8 @@ __pycache__/*
 
 # Passwords / secrets
 twitter_keys.py
+TwitterKeys.py
 
 # Neural Network
 *.mat
+
