@@ -1,5 +1,7 @@
+from SlackBot import SlackBot
 from Twitter import Twitter
 from NeuralNetwork import NeuralNetwork
+
 
 def getDaveTweet():
 
@@ -13,10 +15,10 @@ def runNeuralNetwork():
 
 def main():
 
-    # Currently not working because keys expired.
-    # print(getDaveTweet());
+    # print(getDaveTweet())
     runNeuralNetwork();
-
+    slackbot = SlackBot()
+    slackbot.run()
 
 if __name__ == "__main__":
     main()
