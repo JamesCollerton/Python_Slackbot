@@ -8,4 +8,5 @@ class NeuralNetwork:
 
     def runNeuralNetwork(self):
 
-        print("Hello, world");
+        os.chdir('dependencies/neural_artistic_style/');
+        os.system('bash runPy.sh');
