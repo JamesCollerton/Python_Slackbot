@@ -7,10 +7,10 @@ def getDaveTweet():
     twitter = Twitter();
     return twitter.getDaveTweet();
 
-def runNeuralNetwork():
+def runNeuralNetwork(imageName):
 
     neuralNetwork = NeuralNetwork();
-    neuralNetwork.runNeuralNetwork();
+    neuralNetwork.runNeuralNetwork(imageName);
 
 def runSlackBot():
 
@@ -20,8 +20,8 @@ def runSlackBot():
 def main():
 
     # print(getDaveTweet())
-    # runNeuralNetwork();
-    runSlackBot();
+    runNeuralNetwork('1-style.jpg');
+    # runSlackBot();
 
 if __name__ == "__main__":
     main()
