@@ -2,6 +2,9 @@ from SlackBot import SlackBot
 from Twitter import Twitter
 from NeuralNetwork import NeuralNetwork
 
+import sys
+import signal
+
 def getDaveTweet():
 
     twitter = Twitter();
