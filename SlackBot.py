@@ -1,7 +1,8 @@
 import os
 import time
-import Keys
+import threading
 
+import Keys
 from slackclient import SlackClient
 
 class SlackBot:
@@ -16,17 +17,30 @@ class SlackBot:
         """
         Connects SlackBot using supplied credentials
         """
-        READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
         if SlackBot.slack_client.rtm_connect():
             print("StarterBot connected and running!")
-            while True:
-                command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
-                if command and channel:
-                    self.handle_command(command, channel)
-                time.sleep(READ_WEBSOCKET_DELAY)
+            threading.Timer(1, self.monitor).start()
         else:
             print("Connection failed. Invalid Slack token or bot ID?")
 
+        # READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
+        # if SlackBot.slack_client.rtm_connect():
+        #     print("StarterBot connected and running!")
+        #     while True:
+        #         command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
+        #         if command and channel:
+        #             self.handle_command(command, channel)
+        #         time.sleep(READ_WEBSOCKET_DELAY)
+        # else:
+        #     print("Connection failed. Invalid Slack token or bot ID?")
+
+    def monitor(self):
+
+        command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
+        if command and channel:
+            self.handle_command(command, channel)
+
+        threading.Timer(1, self.monitor).start()
 
     def handle_command(self, command, channel):
         """
