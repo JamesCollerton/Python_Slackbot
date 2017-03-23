@@ -34,9 +34,11 @@ class SlackBot:
         are valid commands. If so, then acts on the commands. If not,
         returns back what it needs for clarification.
         """
-        response = "len = " + str(len(command))
+
+        attachments = [{"title": "Incredible, unique, Dave art",
+                        "image_url": "http://cdn77.sadanduseless.com/wp-content/uploads/2016/05/potoo1.jpg"}];
         SlackBot.slack_client.api_call("chat.postMessage", channel=channel,
-                              text=response, as_user=True)
+                                        as_user=True, attachments = attachments);
 
 
     def parse_slack_output(self, slack_rtm_output):

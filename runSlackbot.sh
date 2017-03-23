@@ -1,1 +1,1 @@
-python -B SlackBotMain.py
+python -B SlackBotMain.py >> SlackBotOutput.txt

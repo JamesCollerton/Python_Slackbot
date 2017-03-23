@@ -20,8 +20,8 @@ def runSlackBot():
 def main():
 
     # print(getDaveTweet())
-    runNeuralNetwork('1-style.jpg');
-    # runSlackBot();
+    # runNeuralNetwork('1-style.jpg');
+    runSlackBot();
 
 if __name__ == "__main__":
     main()
