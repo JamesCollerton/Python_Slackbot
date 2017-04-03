@@ -13,9 +13,12 @@ class SlackBot:
     # Instantiate Slack & Twilio clients
     slack_client = SlackClient(Keys.slack_bot_token)
 
+    # Create thread for running SlackBot monitor
+
     def run(self):
         """
-        Connects SlackBot using supplied credentials
+        Connects SlackBot using supplied credentials and
+        starts a thread looking for input every one second
         """
         if SlackBot.slack_client.rtm_connect():
             print("StarterBot connected and running!")
@@ -23,19 +26,13 @@ class SlackBot:
         else:
             print("Connection failed. Invalid Slack token or bot ID?")
 
-        # READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
-        # if SlackBot.slack_client.rtm_connect():
-        #     print("StarterBot connected and running!")
-        #     while True:
-        #         command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
-        #         if command and channel:
-        #             self.handle_command(command, channel)
-        #         time.sleep(READ_WEBSOCKET_DELAY)
-        # else:
-        #     print("Connection failed. Invalid Slack token or bot ID?")
-
     def monitor(self):
-
+        """
+        Gets the command and channel from any input found from the
+        slack channel and then passes it to the function which deals
+        with it.
+        """
+        print("Hello")
         command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
         if command and channel:
             self.handle_command(command, channel)
@@ -64,6 +61,7 @@ class SlackBot:
         output_list = slack_rtm_output
         if output_list and len(output_list) > 0:
             for output in output_list:
+                print(output)
                 if output and 'text' in output and SlackBot.AT_BOT in output['text']:
                     # return text after the @ mention, whitespace removed
                     return output['text'].split(SlackBot.AT_BOT)[1].strip().lower(), \
