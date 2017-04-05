@@ -18,16 +18,16 @@ class SlackBot:
     # Create thread for running SlackBot monitor
 
     def run(self):
-        # """
-        # Connects SlackBot using supplied credentials and
-        # starts a thread looking for input every one second
-        # """
-        # if SlackBot.slack_client.rtm_connect():
-        #     print("StarterBot connected and running!")
-        #     threading.Timer(1, self.monitor).start()
-        # else:
-        #     print("Connection failed. Invalid Slack token or bot ID?")
-        self.getImage();
+        """
+        Connects SlackBot using supplied credentials and
+        starts a thread looking for input every one second
+        """
+        if SlackBot.slack_client.rtm_connect():
+            print("StarterBot connected and running!")
+            threading.Timer(1, self.monitor).start()
+        else:
+            print("Connection failed. Invalid Slack token or bot ID?")
+        # self.getImage();
 
     def monitor(self):
         """
