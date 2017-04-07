@@ -27,7 +27,6 @@ class SlackBot:
             threading.Timer(1, self.monitor).start()
         else:
             print("Connection failed. Invalid Slack token or bot ID?")
-        # self.getImage();
 
     def monitor(self):
         """
@@ -35,11 +34,6 @@ class SlackBot:
         slack channel and then passes it to the function which deals
         with it.
         """
-        # command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
-        # if command and channel:
-        #     self.handle_command(command, channel)
-        #
-        # threading.Timer(1, self.monitor).start()
         url, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
         if url and channel:
             self.getImage(url)
@@ -66,55 +60,25 @@ class SlackBot:
         this parsing function returns None unless a message is
         directed at the Bot, based on its ID.
         """
-        # output_list = slack_rtm_output
-        # if output_list and len(output_list) > 0:
-        #     for output in output_list:
-        #         if output and 'text' in output and SlackBot.AT_BOT in output['text']:
-        #             # return text after the @ mention, whitespace removed
-        #             return output['text'].split(SlackBot.AT_BOT)[1].strip().lower(), \
-        #                    output['channel']
-        # return None, None
-
         output_list = slack_rtm_output
         if output_list and len(output_list) > 0:
             for output in output_list:
-                # print('')
-                # print(output)
-                # print('')
                 try:
                     url = output['file']['url_private']
                     channel = output['channel']
                     return url, channel
                 except KeyError:
                     return None, None
-
-                # if (output and 'file' in output) and (output['file'] and output['file']['url_private'] in output['file']):
-                #     return output['file']['url_private'], \
-                #            output['channel']
-                # elif output and 'text' in output and SlackBot.AT_BOT in output['text']:
-                #     return output['text'].split(SlackBot.AT_BOT)[1].strip().lower(), \
-                #            output['channel']
-        # return None, None
-
-    # def parse_slack_file_output(self, slack_rtm_output):
-    #     """
-    #     The Slack Real Time Messaging API is an events firehose.
-    #     this parsing function returns None unless a message is
-    #     directed at the Bot, based on its ID.
-    #     """
-    #     output_list = slack_rtm_output
-    #     if output_list and len(output_list) > 0:
-    #         for output in output_list:
-    #             if output and 'url_private' in output and SlackBot.AT_BOT in output['text']:
-    #                 # return text after the @ mention, whitespace removed
-    #                 return output['text'].split(SlackBot.AT_BOT)[1].strip().lower(), \
-    #                        output['channel']
-    #     return None, None
+        return None, None
 
     def getImage(self, url):
-        # url = 'https://files.slack.com/files-pri/T4F8BB072-F4TGMV54J/donelli.jpg';
+        """
+        This takes in a URL from the slack message which corresponds
+        to the location of the picture. It then downloads it.
+        """
         token = Keys.slack_bot_token;
-        path='test.jpg'
+        path='images_input_temp/image_' + time.strftime("%c").replace(" ", "").replace(":","") + '.jpg'
+        # path='image_.jpg'
 
         r = requests.get(url, stream=True, headers={'Authorization': 'Bearer %s' % token})
         if r.status_code == 200:
