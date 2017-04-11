@@ -15,12 +15,10 @@ class SlackBot:
     # Instantiate Slack & Twilio clients
     slack_client = SlackClient(Keys.slack_bot_token)
 
-    # Create thread for running SlackBot monitor
-
     def run(self):
         """
         Connects SlackBot using supplied credentials and
-        starts a thread looking for input every one second
+        starts a thread looking for input every one second.
         """
         if SlackBot.slack_client.rtm_connect():
             print("StarterBot connected and running!")

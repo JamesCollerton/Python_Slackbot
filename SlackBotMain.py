@@ -24,7 +24,7 @@ def main():
 
     # print(getDaveTweet())
     # runNeuralNetwork('1-style.jpg');
-    runSlackBot();
+    # runSlackBot();
 
 if __name__ == "__main__":
     main()
