@@ -78,7 +78,6 @@ class SlackBot:
         """
         token = Keys.slack_bot_token;
         path='images_input_temp/image_' + time.strftime("%c").replace(" ", "").replace(":","") + '.jpg'
-        # path='image_.jpg'
 
         r = requests.get(url, stream=True, headers={'Authorization': 'Bearer %s' % token})
         if r.status_code == 200:
