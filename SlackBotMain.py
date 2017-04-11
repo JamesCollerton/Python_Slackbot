@@ -2,6 +2,9 @@ from SlackBot import SlackBot
 from Twitter import Twitter
 from NeuralNetwork import NeuralNetwork
 
+import sys
+import signal
+
 def getDaveTweet():
 
     twitter = Twitter();
@@ -20,8 +23,8 @@ def runSlackBot():
 def main():
 
     # print(getDaveTweet())
-    runNeuralNetwork('1-style.jpg');
-    # runSlackBot();
+    # runNeuralNetwork('1-style.jpg');
+    runSlackBot();
 
 if __name__ == "__main__":
     main()

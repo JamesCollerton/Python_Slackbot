@@ -1,7 +1,10 @@
 import os
 import time
-import Keys
+import threading
+import requests
+import shutil
 
+import Keys
 from slackclient import SlackClient
 
 class SlackBot:
@@ -12,21 +15,31 @@ class SlackBot:
     # Instantiate Slack & Twilio clients
     slack_client = SlackClient(Keys.slack_bot_token)
 
+    # Create thread for running SlackBot monitor
+
     def run(self):
         """
-        Connects SlackBot using supplied credentials
+        Connects SlackBot using supplied credentials and
+        starts a thread looking for input every one second
         """
-        READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
         if SlackBot.slack_client.rtm_connect():
             print("StarterBot connected and running!")
-            while True:
-                command, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
-                if command and channel:
-                    self.handle_command(command, channel)
-                time.sleep(READ_WEBSOCKET_DELAY)
+            threading.Timer(1, self.monitor).start()
         else:
             print("Connection failed. Invalid Slack token or bot ID?")
 
+    def monitor(self):
+        """
+        Gets the command and channel from any input found from the
+        slack channel and then passes it to the function which deals
+        with it.
+        """
+        url, channel = self.parse_slack_output(SlackBot.slack_client.rtm_read())
+        if url and channel:
+            self.getImage(url)
+            self.handle_command(url, channel)
+
+        threading.Timer(1, self.monitor).start()
 
     def handle_command(self, command, channel):
         """
@@ -34,9 +47,11 @@ class SlackBot:
         are valid commands. If so, then acts on the commands. If not,
         returns back what it needs for clarification.
         """
-        response = "len = " + str(len(command))
+
+        attachments = [{"title": "Incredible, unique, Dave art",
+                        "image_url": "http://cdn77.sadanduseless.com/wp-content/uploads/2016/05/potoo1.jpg"}];
         SlackBot.slack_client.api_call("chat.postMessage", channel=channel,
-                              text=response, as_user=True)
+                                        as_user=True, attachments = attachments);
 
 
     def parse_slack_output(self, slack_rtm_output):
@@ -48,8 +63,24 @@ class SlackBot:
         output_list = slack_rtm_output
         if output_list and len(output_list) > 0:
             for output in output_list:
-                if output and 'text' in output and SlackBot.AT_BOT in output['text']:
-                    # return text after the @ mention, whitespace removed
-                    return output['text'].split(SlackBot.AT_BOT)[1].strip().lower(), \
-                           output['channel']
+                try:
+                    url = output['file']['url_private']
+                    channel = output['channel']
+                    return url, channel
+                except KeyError:
+                    return None, None
         return None, None
+
+    def getImage(self, url):
+        """
+        This takes in a URL from the slack message which corresponds
+        to the location of the picture. It then downloads it.
+        """
+        token = Keys.slack_bot_token;
+        path='images_input_temp/image_' + time.strftime("%c").replace(" ", "").replace(":","") + '.jpg'
+
+        r = requests.get(url, stream=True, headers={'Authorization': 'Bearer %s' % token})
+        if r.status_code == 200:
+            with open(path, 'wb') as f:
+                r.raw.decode_content = True
+                shutil.copyfileobj(r.raw, f)
