@@ -1,6 +1,7 @@
 from SlackBot import SlackBot
 from Twitter import Twitter
 from NeuralNetwork import NeuralNetwork
+from ImageQueue import ImageQueue
 
 import sys
 import signal
@@ -20,11 +21,17 @@ def runSlackBot():
     slackbot = SlackBot();
     slackbot.run();
 
+def runQueue():
+
+    imageQueue = ImageQueue();
+    imageQueue.run();
+
 def main():
 
     # print(getDaveTweet())
     # runNeuralNetwork('1-style.jpg');
     # runSlackBot();
+    runQueue();
 
 if __name__ == "__main__":
     main()
