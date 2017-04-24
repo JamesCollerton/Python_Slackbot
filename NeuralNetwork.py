@@ -5,7 +5,7 @@ class NeuralNetwork:
 
     bashString = 'python neural_style.py --content ../images/dave_face.jpeg --styles ../images/style.jpg --output ../images/output.jpg --iterations 10'
 
-    imageSourceLocation = 'images_input/';
+    imageSourceLocation = 'images_input_temp/';
     imageDestLocation = 'dependencies/images/';
     imageDestFileName = 'style.jpg';
 

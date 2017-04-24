@@ -1,3 +1,5 @@
+from NeuralNetwork import NeuralNetwork
+
 import os
 import time
 
@@ -11,7 +13,12 @@ class ImageQueue:
         one to do. This should be done on its own thread so it can run while
         the slackbot looks for images.
         """
-        self.getOldestImage();
+        oldestImage = self.getOldestImage();
+        print(oldestImage);
+        neuralNetwork = NeuralNetwork();
+        neuralNetwork.runNeuralNetwork(oldestImage);
+        print('Done!')
+
 
     def getOldestImage(self):
         """
@@ -32,4 +39,4 @@ class ImageQueue:
                 earliestTime = fileTime;
                 earliestFile = fileName
 
-        print(earliestFile)
+        return(os.path.split(earliestFile)[1])
