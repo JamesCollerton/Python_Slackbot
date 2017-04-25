@@ -16,12 +16,12 @@ class ImageQueue:
         the slackbot looks for images.
         """
         oldestImage = self.getOldestImage();
-        print(oldestImage);
-        # self.runNeuralNetwork(oldestImage);
-        self.deleteOldestFile(oldestImage);
 
-        self.run();
-
+        if oldestImage is not None:
+            print(oldestImage);
+            # self.runNeuralNetwork(oldestImage);
+            self.deleteOldestFile(oldestImage);
+            self.run();
 
     def getOldestImage(self):
         """
@@ -42,7 +42,10 @@ class ImageQueue:
                 earliestTime = fileTime;
                 earliestFile = fileName
 
-        return(os.path.split(earliestFile)[1])
+        if earliestFile is None:
+            return None
+        else:
+            return(os.path.split(earliestFile)[1])
 
     def runNeuralNetwork(self, oldestImage):
         """
