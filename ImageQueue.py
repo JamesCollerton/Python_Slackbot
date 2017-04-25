@@ -5,7 +5,7 @@ import time
 
 class ImageQueue:
 
-    __path = 'images_input_temp';
+    __path = 'images_input_temp/';
 
     def run(self):
         """
@@ -19,6 +19,8 @@ class ImageQueue:
         print(oldestImage);
         # self.runNeuralNetwork(oldestImage);
         self.deleteOldestFile(oldestImage);
+
+        self.run();
 
 
     def getOldestImage(self):
@@ -53,7 +55,13 @@ class ImageQueue:
     def deleteOldestFile(self, oldestImage):
         """
         This is used to delete the oldest file once we've created the neural
-        network image from it.
+        network image from it. It really copies the file so we can have two to
+        work with while we're testing.
         """
-        with open(self.__path + oldestImage, 'a'):
-            os.utime(self.__path + oldestImage, None)
+        with open(self.__path + oldestImage, 'rb') as f:
+            data = f.read()
+
+        with open(self.__path + 'image_' + time.strftime("%c").replace(" ", "-").replace(":","-") + '.jpg', 'wb') as f:
+            f.write(data)
+
+        os.remove(self.__path + oldestImage)
