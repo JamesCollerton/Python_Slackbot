@@ -15,12 +15,10 @@ class SlackBot:
     # Instantiate Slack & Twilio clients
     slack_client = SlackClient(Keys.slack_bot_token)
 
-    # Create thread for running SlackBot monitor
-
     def run(self):
         """
         Connects SlackBot using supplied credentials and
-        starts a thread looking for input every one second
+        starts a thread looking for input every one second.
         """
         if SlackBot.slack_client.rtm_connect():
             print("StarterBot connected and running!")
@@ -47,7 +45,6 @@ class SlackBot:
         are valid commands. If so, then acts on the commands. If not,
         returns back what it needs for clarification.
         """
-
         attachments = [{"title": "Incredible, unique, Dave art",
                         "image_url": "http://cdn77.sadanduseless.com/wp-content/uploads/2016/05/potoo1.jpg"}];
         SlackBot.slack_client.api_call("chat.postMessage", channel=channel,
