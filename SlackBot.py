@@ -50,6 +50,11 @@ class SlackBot:
         SlackBot.slack_client.api_call("chat.postMessage", channel=channel,
                                         as_user=True, attachments = attachments);
 
+    def sendImage(self):
+        """
+        This is to be called 
+        """
+        print(sendingImage)
 
     def parse_slack_output(self, slack_rtm_output):
         """
